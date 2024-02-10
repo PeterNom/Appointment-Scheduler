@@ -1,0 +1,10 @@
+﻿@model IEnumerable<Appointment>
+
+@foreach(var appointment in Model)
+{
+    <div>
+        <h1>@appointment.Appointment_Name</h1>
+        <h2>@appointment.Appointment_Description</h2>
+        <h3>@appointment.Location</h3>
+    </div>
+}
