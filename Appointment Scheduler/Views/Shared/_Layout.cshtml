@@ -131,15 +131,14 @@
       <!-- Image and name container -->
       <div class="w3-margin-top" style="text-align: center">
         <div class="image w3-round"></div>
-        <p class="profession"><span class="w3-padding w3-margin" style="font-weight: bolder; color: #fdf5e6">DEV<span style="color: #ffcc66">BOOM</span></span></p>
+        <p class="profession"><span class="w3-padding w3-margin" style="font-weight: bolder; color: #fdf5e6">Track  <span style="color: #ffcc66">EVERYTHING</span></span></p>
         <p class="bio"><span class="w3-padding w3-margin" style="font-weight: bolder; color: #fdf5e6">Keep your Appointments in Order</span></p><br>
       </div>
 
       <!-- Links section 1 -->
       <div class="links-container">
-        <a href="#" class="w3-button w3-sand w3-hover-pale-green link border" target="_blank">Our website</a>
-        <a href="#" class="w3-button w3-sand w3-hover-pale-green link border" target="_blank">Our projects</a>
-        <a href="#" class="w3-button w3-sand w3-hover-pale-green link border" target="_blank">Our blog</a>
+        <a asp-controller="Appointment" asp-action="Index" class="w3-button w3-sand w3-hover-pale-green link border" target="_blank">Appointment List</a>
+        <a asp-controller="Appointment" asp-action="Add"   class="w3-button w3-sand w3-hover-pale-green link border" target="_blank">Create an Appointment</a>
       </div>
       <div>
         @RenderBody()
@@ -163,7 +162,7 @@
         <div class="contact">
           <p class=""><span class="w3-padding w3-margin" style="font-weight: bolder; color: #fdf5e6">CONTACT US</span></p>
           <div class="info">
-            <a href = "tel: +49123456789"><span><i data-feather="phone"></i> +49123456789</span></a>
+            <a href="tel: +301234567891"><span><i data-feather="phone"></i> +301234567891</span></a>
             <a href = "mailto: email@company.com"><span><i data-feather="mail"></i> email@company.com</span></a>
           </div>
         </div><br>

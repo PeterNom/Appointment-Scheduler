@@ -1,0 +1,14 @@
+﻿@model IEnumerable<Appointment>
+
+@foreach(var appointment in Model)
+{
+    <div>
+        <h1>@appointment.Appointment_Name</h1>
+        <h2>@appointment.Appointment_Description</h2>
+        <h3>@appointment.Location</h3>
+
+        <a asp-controller="Appointment" asp-action="Details" asp-route-id="@appointment.AppointmentId">Details</a>
+        <a asp-controller="Appointment" asp-action="Update" asp-route-id="@appointment.AppointmentId">Update</a>
+        <a asp-controller="Appointment" asp-action="Delete" asp-route-id="@appointment.AppointmentId">Delete</a>
+    </div>
+}

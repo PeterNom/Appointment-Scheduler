@@ -5,8 +5,12 @@ namespace Appointment_Scheduler.Repositories
 {
     public interface IAppointmentRepository
     {
-        IEnumerable<Appointment> AllAppointments { get; }
-        Appointment? GetAppointmentById(int pieId);
-        IEnumerable<Appointment> SearchAppointments(DateTime startDate, DateTime endDate);
+        Task<IEnumerable<Appointment>> GetAllAppointmentsAsync();
+        Task<Appointment?> GetAppointmentByIdAsync(int appointId);
+        Task<int> AddAppointmentsAsync(Appointment appointment);
+        Task<int> UpdateAppointmentsAsync(Appointment appointment);
+        Task<int> DeleteAppointmentsAsync(Appointment appointment);
+        Task<int> GetAllAppointmentCountAsync(Appointment appointment);
+        Task<IEnumerable<Appointment>> SearchAppointments(DateTime startDate, DateTime endDate);
     }
 }

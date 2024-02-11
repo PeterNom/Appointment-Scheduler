@@ -1,0 +1,53 @@
+﻿@model AppointmentAddViewModel
+
+@if(ViewData["ErrorMessage"] != null)
+{
+    <p class="text-danger">@ViewData["ErrorMessage"]</p>
+}
+
+<form method="post" asp-controller="Appointment" asp-action="Add">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="mb-3">
+        <label asp-for="Appointment.Appointment_Name" class="form-label"></label>
+        <input asp-for="Appointment.Appointment_Name" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Appointment.Appointment_Description" class="form-label"></label>
+        <textarea asp-for="Appointment.Appointment_Description" class="form-control" rows="5" cols="50" style="resize: none;"></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Appointment.StartDate" class="form-label"></label>
+        <input asp-for="Appointment.StartDate" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Appointment.EndDate" class="form-label"></label>
+        <input asp-for="Appointment.EndDate" class="form-control" />
+    </div>
+    
+    <div class="mb-3">
+        <label asp-for="Appointment.Location" class="form-label"></label>
+        <input asp-for="Appointment.Location" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Appointment.Reminder" class="form-label"></label>
+        <select asp-for="Appointment.Reminder" asp-items="Model.ReminderInTime"></select>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Appointment.PhoneNumber" class="form-label"></label>
+        <input asp-for="Appointment.PhoneNumber" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Appointment.Email" class="form-label"></label>
+        <input asp-for="Appointment.Email" class="form-control" />
+    </div>
+
+    <input type="submit" value="Create appointment" class="btn btn-primary" />
+</form>
+
