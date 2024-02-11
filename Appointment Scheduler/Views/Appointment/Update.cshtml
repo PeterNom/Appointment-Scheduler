@@ -1,5 +1,63 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model AppointmentUpdateViewModel
+
+<h2>Update appointment @Model.Appointment.Appointment_Name</h2>
+<hr />
+
+<form method="post" asp-controller="Appointment" asp-action="Update">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="Appointment.AppointmentId"/>
+
+    <div class="mb-3">
+        <label asp-for="Appointment.Appointment_Name" class="form-label"></label>
+        <input asp-for="Appointment.Appointment_Name" class="form-control" />
+        <span asp-validation-for="Appointment.Appointment_Name" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Appointment.Appointment_Description" class="form-label"></label>
+        <textarea asp-for="Appointment.Appointment_Description" class="form-control" rows="5" cols="50" style="resize: none;"></textarea>
+        <span asp-validation-for="Appointment.Appointment_Description" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Appointment.StartDate" class="form-label"></label>
+        <input asp-for="Appointment.StartDate" class="form-control" />
+        <span asp-validation-for="Appointment.StartDate" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Appointment.EndDate" class="form-label"></label>
+        <input asp-for="Appointment.EndDate" class="form-control" />
+        <span asp-validation-for="Appointment.EndDate" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Appointment.Location" class="form-label"></label>
+        <input asp-for="Appointment.Location" class="form-control" />
+        <span asp-validation-for="Appointment.Location" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Appointment.Reminder" class="form-label"></label>
+        <select asp-for="Appointment.Reminder" asp-items="Model.ReminderInTime"></select>
+        <span asp-validation-for="Appointment.Reminder" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Appointment.PhoneNumber" class="form-label"></label>
+        <input asp-for="Appointment.PhoneNumber" class="form-control" />
+        <span asp-validation-for="Appointment.PhoneNumber" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Appointment.Email" class="form-label"></label>
+        <input asp-for="Appointment.Email" type="email" />
+        <span asp-validation-for="Appointment.Email" class="text-danger"></span>
+    </div>
+
+    <input type="submit" value="Update Appointment" class="btn btn-primary" />
+</form>
+
+<div>
+    <a asp-controller="Appointment" asp-action="Index">Back to overview</a>
+</div>

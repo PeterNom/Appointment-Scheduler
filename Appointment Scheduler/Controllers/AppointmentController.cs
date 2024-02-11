@@ -105,7 +105,6 @@ namespace Appointment_Scheduler.Controllers
 
         [HttpPost,ActionName("Delete")]
         [ValidateAntiForgeryToken]
-
         public async Task<IActionResult> DeleteConfirmed(int? id)
         {
             if (id == null)
@@ -129,6 +128,62 @@ namespace Appointment_Scheduler.Controllers
             var appointmentToDelete = await _appointmentRepository.GetAppointmentByIdAsync(id.Value);
 
             return View(appointmentToDelete);
+        }
+
+        public async Task<IActionResult> Update(int? id)
+        {
+            if(id == null)
+            {
+                return NotFound();
+            }
+
+            var enumData = from ReminderIn e in Enum.GetValues(typeof(ReminderIn)) 
+                           select new { ID = (int)e, Name = e.ToString(), };
+            
+            IEnumerable<SelectListItem> selectListItems = new SelectList(enumData, "ID", "Name");
+
+            var selectedAppointment = await _appointmentRepository.GetAppointmentByIdAsync(id.Value);
+
+            AppointmentUpdateViewModel appointmentUpdateViewModel = new() { ReminderInTime = selectListItems, Appointment = selectedAppointment };
+
+            return View(appointmentUpdateViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Update(AppointmentUpdateViewModel app)
+        {
+            var appointment = await _appointmentRepository.GetAppointmentByIdAsync(app.Appointment.AppointmentId);
+
+            try
+            {
+                if (appointment == null)
+                {
+                    ModelState.AddModelError(string.Empty, "The appointment you want to update doesn't exist or was already deleted by someone else.");
+                }
+
+                if(ModelState.IsValid)
+                {
+                    await _appointmentRepository.UpdateAppointmentsAsync(app.Appointment);
+                    
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", $"Updating the appointment failed, please try again! Error: {ex.Message}");
+            }
+
+            var enumData = from ReminderIn e in Enum.GetValues(typeof(ReminderIn))
+                           select new { ID = (int)e, Name = e.ToString(), };
+
+            IEnumerable<SelectListItem> selectListItems = new SelectList(enumData, "ID", "Name");
+
+            var selectedAppointment = await _appointmentRepository.GetAppointmentByIdAsync(app.Appointment.AppointmentId);
+
+            AppointmentUpdateViewModel appointmentUpdateViewModel = new() { ReminderInTime = selectListItems, Appointment = selectedAppointment };
+
+            return View(appointmentUpdateViewModel);
         }
     }
 }
