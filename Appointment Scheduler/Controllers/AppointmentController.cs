@@ -37,7 +37,8 @@ namespace Appointment_Scheduler.Controllers
         {
             try
             {
-                var enumData = from ReminderIn e in Enum.GetValues(typeof(ReminderIn))
+                var enumData = from ReminderIn e 
+                               in Enum.GetValues(typeof(ReminderIn))
                                select new
                                {
                                    ID = (int)e,
@@ -93,6 +94,41 @@ namespace Appointment_Scheduler.Controllers
             AppointmentAddViewModel appointmentAddViewModel = new() { ReminderInTime = selectListItems };
 
             return View(appointmentAddViewModel);
+        }
+        
+        public async Task<IActionResult> Delete(int id)
+        {
+            var appointmentToDelete = await _appointmentRepository.GetAppointmentByIdAsync(id);
+
+            return View(appointmentToDelete);
+        }
+
+        [HttpPost,ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+
+        public async Task<IActionResult> DeleteConfirmed(int? id)
+        {
+            if (id == null)
+            {
+                ViewData["ErrorMessage"] = "Deleting the appointment failed, invalid ID!";
+                return View();
+            }
+
+            try
+            {
+                await _appointmentRepository.DeleteAppointmentsAsync(id.Value);
+                TempData["AppointmentDeleted"] = "Appointment deleted successfully!";
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                ViewData["ErrorMessage"] = $"Deleting the appointment failed, please try again! Error: {ex.Message}";
+            }
+
+            var appointmentToDelete = await _appointmentRepository.GetAppointmentByIdAsync(id.Value);
+
+            return View(appointmentToDelete);
         }
     }
 }

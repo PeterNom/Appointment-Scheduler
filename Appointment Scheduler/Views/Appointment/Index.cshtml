@@ -1,5 +1,10 @@
 ﻿@model IEnumerable<Appointment>
 
+@if(TempData["AppointmentDeleted"] != null)
+{
+    <p class="text-success">TempData["AppointmentDeleted"]</p>
+}
+
 @foreach(var appointment in Model)
 {
     <div>

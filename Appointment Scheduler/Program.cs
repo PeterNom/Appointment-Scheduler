@@ -2,6 +2,7 @@ using Appointment_Scheduler.Data;
 using Appointment_Scheduler.Models;
 using Appointment_Scheduler.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,14 +17,14 @@ builder.Services.AddDbContext<AppointmentSchedulerDbContext>(options =>
 
 var app = builder.Build();
 
-app.UseStaticFiles();
-
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
 }
-
-app.MapDefaultControllerRoute();
+else
+{
+    app.UseExceptionHandler("/Home/Error");
+}
 
 using (var scope = app.Services.CreateScope())
 {
@@ -32,5 +33,10 @@ using (var scope = app.Services.CreateScope())
 
     DbInitializer.Seed(context);
 }
+
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+
+app.MapDefaultControllerRoute();
 
 app.Run();

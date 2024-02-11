@@ -24,13 +24,20 @@ namespace Appointment_Scheduler.Models
         public string Appointment_Name { get; set; } = string.Empty;
 
         [StringLength(100)]
+        [Display(Name = "Short description")]
         public string? Appointment_Description { get; set; }
+
         public DateTime CreatedDate { get; set; }
+
+        [Display(Name = "Start Date")]
         public DateTime StartDate { get; set;}
+
+        [Display(Name = "End Date")]
         public DateTime EndDate { get; set; }
 
         [Display(Name = "Location")]
         public string? Location { get; set; }
+
         public ReminderIn Reminder { get; set; }
 
         [Display(Name = "Phone Number")]
