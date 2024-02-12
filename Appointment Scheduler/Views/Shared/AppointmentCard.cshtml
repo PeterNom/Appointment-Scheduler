@@ -1,0 +1,26 @@
+﻿@model Appointment
+
+<div class="col">
+    <div class="card appointment-card">
+        <img src="images/test.jpg" class="card-img-top" alt="@Model.Appointment_Name">
+        <div class="card-body appointment-button">
+            <h4 class="d-grid">
+                <a class="btn btn-secondary"
+                   asp-controller="Appointment"
+                   asp-action="Update"
+                   asp-route-id="@Model.AppointmentId"> + Update Appointment</a>
+            </h4>
+            <div class="d-flex justify-content-between mt-2">
+                <h2 class="text-start">
+                    <a asp-controller="Appointment"
+                       asp-action="Details"
+                       asp-route-id="@Model.AppointmentId"
+                       class="appointment-link">@Model.Appointment_Name</a>
+                </h2>
+                <h5 class="text-nowrap">
+                    @Model.EndDate.ToShortDateString()
+                </h5>
+            </div>
+        </div>
+    </div>
+</div>

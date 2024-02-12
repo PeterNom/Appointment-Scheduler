@@ -6,6 +6,7 @@
 <form method="post" asp-controller="Appointment" asp-action="Update">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <input type="hidden" asp-for="Appointment.AppointmentId"/>
+    <input type="hidden" asp-for="@Model.ReminderInTime"/>
 
     <div class="mb-3">
         <label asp-for="Appointment.Appointment_Name" class="form-label"></label>
