@@ -6,7 +6,7 @@ namespace Appointment_Scheduler.ViewModels
 {
     public class AppointmentUpdateViewModel
     {
-        public IEnumerable<SelectListItem>? ReminderInTime { get; set; } = default!;
-        public Appointment? Appointment { get; set; }
+        public IEnumerable<SelectListItem> ReminderInTime { get; set; } = default!;
+        public Appointment Appointment { get; set; } = default!;
     }
 }
