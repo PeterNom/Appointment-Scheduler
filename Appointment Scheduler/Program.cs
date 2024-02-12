@@ -3,6 +3,7 @@ using Appointment_Scheduler.Models;
 using Appointment_Scheduler.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 

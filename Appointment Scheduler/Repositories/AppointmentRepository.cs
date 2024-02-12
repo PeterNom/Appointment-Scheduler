@@ -81,9 +81,11 @@ namespace Appointment_Scheduler.Repositories
             return await _SchedulerDbContext.Appointments.CountAsync();
         }
 
-        public async Task<IEnumerable<Appointment>> SearchAppointments(DateTime startDate, DateTime endDate)
+        public IEnumerable<Appointment> SearchAppointments(string searchQuery)
         {
-            throw new NotImplementedException();
+            var result = _SchedulerDbContext.Appointments.Where(app=> app.Appointment_Name.Contains(searchQuery));
+
+            return result;
         }
     }
 }

@@ -49,6 +49,8 @@ namespace Appointment_Scheduler.Controllers
                 
                 AppointmentAddViewModel appointmentAddViewModel = new() { ReminderInTime = selectListItems };
 
+                var count = await _appointmentRepository.GetAllAppointmentCountAsync();
+
                 return View(appointmentAddViewModel);
             }
             catch (Exception ex)
@@ -184,6 +186,11 @@ namespace Appointment_Scheduler.Controllers
             AppointmentUpdateViewModel appointmentUpdateViewModel = new() { ReminderInTime = selectListItems, Appointment = selectedAppointment };
 
             return View(appointmentUpdateViewModel);
+        }
+        
+        public IActionResult Search()
+        { 
+            return View(); 
         }
     }
 }
