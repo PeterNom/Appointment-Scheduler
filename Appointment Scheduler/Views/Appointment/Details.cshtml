@@ -1,71 +1,22 @@
 ﻿@model Appointment
 
-<h2>Details of your Appointment</h2>
-<hr />
+<h3 class="my-5">
+    @Model.Appointment_Name
+</h3>
 
-<div>
-    <dt class="col-sm-2">
-        <label asp-for="AppointmentId"></label>
-    </dt>
-    <dd class="col-sm-10">
-        @Model.AppointmentId
-    </dd>
-    <dt class="col-sm-2">
-        <label asp-for="Appointment_Name"></label>
-    </dt>
-    <dd class="col-sm-10">
-        @Model.Appointment_Name
-    </dd>
-    <dt class="col-sm-2">
-        <label asp-for="Appointment_Description"></label>
-    </dt>
-    <dd class="col-sm-10">
-        @Model.Appointment_Description
-    </dd>
-    <dt class="col-sm-2">
-        <label asp-for="CreatedDate"></label>
-    </dt>
-    <dd class="col-sm-10">
-        @Model.CreatedDate
-    </dd>
-    <dt class="col-sm-2">
-        <label asp-for="StartDate"></label>
-    </dt>
-    <dd class="col-sm-10">
-        @Model.StartDate
-    </dd>
-    <dt class="col-sm-2">
-        <label asp-for="EndDate"></label>
-    </dt>
-    <dd class="col-sm-10">
-        @Model.EndDate
-    </dd>
-    <dt class="col-sm-2">
-        <label asp-for="Location"></label>
-    </dt>
-    <dd class="col-sm-10">
-        @Model.Location
-    </dd>
-    <dt class="col-sm-2">
-        <label asp-for="Reminder"></label>
-    </dt>
-    <dd class="col-sm-10">
-        @Model.Reminder
-    </dd>
-    <dt class="col-sm-2">
-        <label asp-for="PhoneNumber"></label>
-    </dt>
-    <dd class="col-sm-10">
-        @Model.PhoneNumber
-    </dd>
-    <dt class="col-sm-2">
-        <label asp-for="Email"></label>
-    </dt>
-    <dd class="col-sm-10">
-        @Model.Email
-    </dd>
-</div>
-
-<div>
-    <a asp-controller="Appointment" asp-action="Index">Back to overview</a>
+<div class="row gx-5">
+    <img alt="@Model.Appointment_Name" src="images/test.jpg" class="img-fluid col-5" />
+    <div class="col-7">
+        <h4>@Model.Appointment_Name</h4>
+        <p>@Model.Appointment_Description</p>
+        <h3 class="pull-right">@Model.EndDate.ToShortDateString()</h3>
+        <div class="addToCart">
+            <p class="button">
+                <a class="btn btn-secondary"
+                   asp-controller="Appointment"
+                   asp-action="Index"
+                   asp-route-Id="@Model.AppointmentId">Add to cart</a>
+            </p>
+        </div>
+    </div>
 </div>
