@@ -1,6 +1,7 @@
 ﻿using Appointment_Scheduler.Models;
 using Appointment_Scheduler.Repositories;
 using Appointment_Scheduler.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel;
@@ -8,6 +9,7 @@ using static Appointment_Scheduler.Models.Appointment;
 
 namespace Appointment_Scheduler.Controllers
 {
+    [Authorize]
     public class AppointmentController : Controller
     {
         private readonly IAppointmentRepository _appointmentRepository;

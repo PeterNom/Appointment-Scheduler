@@ -4,17 +4,27 @@ using Appointment_Scheduler.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var connectionString = builder.Configuration.GetConnectionString("AppointmentSchedulerDbContextConnection") ?? throw new InvalidOperationException("Connection string 'AppointmentSchedulerDbContextConnection' not found.");
+
+builder.Services.AddDbContext<AppointmentSchedulerDbContext>(options =>
+{
+    options.UseSqlServer(connectionString);
+});
+
+builder.Services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<AppointmentSchedulerDbContext>();
 
 builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<AppointmentSchedulerDbContext>(options =>
-{
-    options.UseSqlServer(builder.Configuration["ConnectionStrings:AppointmentSchedulerDbContextConnection"]);
-});
+builder.Services.AddSession();
+builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddRazorPages();
 
 var app = builder.Build();
 
@@ -27,6 +37,18 @@ else
     app.UseExceptionHandler("/Home/Error");
 }
 
+app.UseHttpsRedirection();
+
+app.UseStaticFiles();
+app.UseSession();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapDefaultControllerRoute();
+
+app.MapRazorPages();
+
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
@@ -34,10 +56,5 @@ using (var scope = app.Services.CreateScope())
 
     DbInitializer.Seed(context);
 }
-
-app.UseHttpsRedirection();
-app.UseStaticFiles();
-
-app.MapDefaultControllerRoute();
 
 app.Run();
