@@ -5,6 +5,11 @@
     <p class="text-success">TempData["AppointmentDeleted"]</p>
 }
 
+@if(TempData["DueAppointmentsDeleted"] != null)
+{
+    <p class="text-success">TempData["DueAppointmentsDeleted"]</p>
+}
+
 <div class="row row-cols-1 row-cols-md-3 g-4">
     @foreach(var appointment in Model)
     {

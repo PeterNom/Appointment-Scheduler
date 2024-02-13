@@ -11,7 +11,10 @@ namespace Appointment_Scheduler.Repositories
         Task<int> AddAppointmentsAsync(Appointment appointment);
         Task<int> UpdateAppointmentsAsync(Appointment appointment);
         Task<int> DeleteAppointmentsAsync(int appointId);
+        Task<int> DeleteCompletedAppointmentsAsync();
+        IEnumerable<Appointment> GetAllDueAppointmentsAsync();
         Task<int> GetAllAppointmentCountAsync();
         IEnumerable<Appointment> SearchAppointments(string searcQuery);
+        
     }
 }

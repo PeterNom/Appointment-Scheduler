@@ -92,6 +92,28 @@ namespace Appointment_Scheduler.Repositories
             }
         }
 
+        public async Task<int> DeleteCompletedAppointmentsAsync()
+        {
+            var appointmentToDelete = GetAllDueAppointmentsAsync();
+
+            if (appointmentToDelete != null)
+            {
+                _SchedulerDbContext.Appointments.RemoveRange(appointmentToDelete);
+                return await _SchedulerDbContext.SaveChangesAsync();
+            }
+            else
+            {
+                throw new ArgumentException($"There are no appointments to delete.");
+            }
+        }
+
+        public IEnumerable<Appointment> GetAllDueAppointmentsAsync()
+        {
+            var appointmentDue = _SchedulerDbContext.Appointments.Where(app => app.EndDate < DateTime.Now).ToList();
+
+            return appointmentDue;
+        }
+        
         public async Task<int> GetAllAppointmentCountAsync()
         {
             return await _SchedulerDbContext.Appointments.CountAsync();

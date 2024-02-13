@@ -45,11 +45,7 @@ namespace Appointment_Scheduler.Controllers
             {
                 var enumData = from ReminderIn e 
                                in Enum.GetValues(typeof(ReminderIn))
-                               select new
-                               {
-                                   ID = (int)e,
-                                   Name = e.ToString(),
-                               };
+                               select new { ID = (int)e, Name = e.ToString(), };
                 
                 IEnumerable<SelectListItem> selectListItems = new SelectList(enumData, "ID", "Name");
                 
@@ -193,7 +189,31 @@ namespace Appointment_Scheduler.Controllers
 
             return View(appointmentUpdateViewModel);
         }
-        
+
+        public IActionResult DeleteDue()
+        {
+            return View( _appointmentRepository.GetAllDueAppointmentsAsync());
+        }
+
+        [HttpPost, ActionName("DeleteDue")]
+        public async Task<IActionResult> DeleteDueConfirm()
+        {
+            try
+            {
+                await _appointmentRepository.DeleteCompletedAppointmentsAsync();
+
+                TempData["DueAppointmentsDeleted"] = "Due Appointments deleted successfully!";
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                ViewData["ErrorMessage"] = $"Deleting due appointments failed, please try again! Error: {ex.Message}";
+            }
+
+            return View(_appointmentRepository.GetDueAppointmentsAsync());
+        }
+
         public IActionResult Search()
         { 
             return View(); 
