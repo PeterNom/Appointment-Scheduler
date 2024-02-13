@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.IO.Pipelines;
+using Microsoft.AspNetCore.Identity;
 
 namespace Appointment_Scheduler.Data
 {

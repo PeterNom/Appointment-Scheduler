@@ -6,6 +6,7 @@ namespace Appointment_Scheduler.Repositories
     public interface IAppointmentRepository
     {
         Task<IEnumerable<Appointment>> GetAllAppointmentsAsync();
+        Task<IEnumerable<Appointment>> GetDueAppointmentsAsync();
         Task<Appointment?> GetAppointmentByIdAsync(int appointId);
         Task<int> AddAppointmentsAsync(Appointment appointment);
         Task<int> UpdateAppointmentsAsync(Appointment appointment);

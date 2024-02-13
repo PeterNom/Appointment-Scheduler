@@ -1,6 +1,8 @@
 ﻿using Appointment_Scheduler.Data;
 using Appointment_Scheduler.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace Appointment_Scheduler.Repositories
 {
@@ -15,7 +17,21 @@ namespace Appointment_Scheduler.Repositories
 
         public  async Task<IEnumerable<Appointment>> GetAllAppointmentsAsync()
         {
-            return await _SchedulerDbContext.Appointments.OrderBy(app=>app.StartDate).AsNoTracking().ToListAsync();  
+            
+            return await _SchedulerDbContext.Appointments
+                .OrderBy(app=>app.EndDate)
+                .AsNoTracking()
+                .ToListAsync();  
+        }
+
+        public async Task<IEnumerable<Appointment>> GetDueAppointmentsAsync()
+        {
+            return await _SchedulerDbContext.Appointments
+                .Where(app => app.EndDate > DateTime.Now && app.EndDate < DateTime.Now.AddDays(7))
+                .OrderBy(app => app.EndDate)
+                .AsNoTracking()
+                .Take(3)
+                .ToListAsync();
         }
 
         public async Task<Appointment?> GetAppointmentByIdAsync(int pieId)

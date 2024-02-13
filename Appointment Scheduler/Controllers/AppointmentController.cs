@@ -5,15 +5,19 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel;
+using System.Net.NetworkInformation;
 using static Appointment_Scheduler.Models.Appointment;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
 
 namespace Appointment_Scheduler.Controllers
 {
+    
     [Authorize]
     public class AppointmentController : Controller
     {
         private readonly IAppointmentRepository _appointmentRepository;
-
+        
         public AppointmentController(IAppointmentRepository appointmentRepository)
         {
             _appointmentRepository = appointmentRepository;

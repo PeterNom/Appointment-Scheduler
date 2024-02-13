@@ -63,7 +63,7 @@ namespace Appointment_Scheduler.Migrations
 
                     b.HasKey("AppointmentId");
 
-                    b.ToTable("Appointments");
+                    b.ToTable("Appointments", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

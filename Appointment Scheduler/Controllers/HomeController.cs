@@ -1,12 +1,26 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Appointment_Scheduler.Models;
+using Appointment_Scheduler.Repositories;
+using Appointment_Scheduler.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Appointment_Scheduler.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly IAppointmentRepository _appointmentRepository;
+
+        public HomeController(IAppointmentRepository appointmentRepository)
         {
-            return View();
+            _appointmentRepository = appointmentRepository;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            IEnumerable<Appointment> appointmentsDue = await _appointmentRepository.GetDueAppointmentsAsync();
+
+            HomeIndexViewModel homeViewModel = new() { Appointments = appointmentsDue };
+
+            return View(homeViewModel);
         }
     }
 }

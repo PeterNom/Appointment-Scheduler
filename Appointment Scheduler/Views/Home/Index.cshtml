@@ -1,1 +1,20 @@
-﻿
+﻿@model HomeIndexViewModel
+
+@if (TempData["AppointmentDeleted"] != null)
+{
+    <p class="text-success">TempData["AppointmentDeleted"]</p>
+}
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    @if (Model.Appointments == null)
+    {
+        <p>You dont have any Appointments Due</p>
+    }
+    else
+    {
+        foreach (var appointment in Model.Appointments)
+        {
+            <partial name="_AppointmentCard" model="appointment" />
+        }
+    }
+</div>

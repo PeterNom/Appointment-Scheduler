@@ -1,4 +1,4 @@
-using Appointment_Scheduler.Data;
+﻿using Appointment_Scheduler.Data;
 using Appointment_Scheduler.Models;
 using Appointment_Scheduler.Repositories;
 using Microsoft.EntityFrameworkCore;
