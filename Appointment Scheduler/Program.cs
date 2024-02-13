@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Identity;
+using Appointment_Scheduler.Configuration;
+using Appointment_Scheduler.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +18,10 @@ builder.Services.AddDbContext<AppointmentSchedulerDbContext>(options =>
 });
 
 builder.Services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<AppointmentSchedulerDbContext>();
+
+builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
+
+builder.Services.AddTransient<IMailService, MailService>();
 
 builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 
