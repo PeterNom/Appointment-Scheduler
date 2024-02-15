@@ -83,6 +83,20 @@ namespace Appointment_Scheduler.Controllers
 
                 await _appointmentRepository.AddAppointmentsAsync(appointment);
 
+                EmailSchedulerViewModel emailSchedulerViewModel = new EmailSchedulerViewModel() 
+                { EmailToId = appointment.Email, EmailToName = appointment.Appointment_Name, EmailSubject ="Appointment Reminder"
+                , EmailBody = "<html><body> Your Appointment" + appointment.Appointment_Name + " </body></html>", delay = (int)appointment.Reminder,
+                    endDate = appointment.EndDate
+                };
+
+                using (var httpClient = new HttpClient())
+                {
+                    using( var response = await httpClient.PostAsJsonAsync("https://localhost:7005/api/mail/", emailSchedulerViewModel)  )
+                    {
+                        await response.Content.ReadAsStringAsync();
+                    }
+                }
+
                 return RedirectToAction(nameof(Index));
             }
 

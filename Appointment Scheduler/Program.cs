@@ -7,6 +7,7 @@ using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Identity;
 using Appointment_Scheduler.Configuration;
 using Appointment_Scheduler.Services;
+using Hangfire;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +27,13 @@ builder.Services.AddTransient<IMailService, MailService>();
 builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddHangfire((sp, config) =>
+{
+    var connectionString = sp.GetRequiredService<IConfiguration>().GetConnectionString("DbConection");
+    config.UseSqlServerStorage(connectionString);
+});
+builder.Services.AddHangfireServer();
 
 builder.Services.AddSession();
 builder.Services.AddHttpContextAccessor();
